@@ -60,13 +60,13 @@ class TodoviewTesstCase(TestCase):
         self.assertEqual(len(response.context['tasks']), 0)
 
     def test_index_post(self):
-        client = client()
+        client = Client()
         data = {'title': 'Test Task', 'due_at': '2023-6-30 23:59:59'}
         response = client.post('/',data)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'todo/index.html')
-        self.assertEqual(response.context['tasks'], 1)
+        self.assertEqual(len(response.context['tasks']), 1)
 
     def test_index_get_order_post(self):
         task1 = Task(title='task1', due_at=timezone.make_aware(datetime(2023, 7, 1)))
